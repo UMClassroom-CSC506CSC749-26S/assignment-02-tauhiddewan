@@ -7,12 +7,22 @@ tff(species_type,type,
 tff(foodlink_type,type,
     foodlink: $tType ).
 
+tff(foodchain_type,type,
+    foodchain: $tType ).
+
+
 %functions
 tff(eaten_decl,type,
     eaten: foodlink > species ).
 
 tff(eater_decl,type,
     eater: foodlink > species ).
+
+tff(chain_start_decl,type,
+    chain_start: foodchain > species ).
+
+tff(chain_end_decl,type,
+    chain_end: foodchain > species ).
 
 %predicates
 tff(eats_decl,type,
@@ -23,6 +33,12 @@ tff(primary_producer_decl,type,
 
 tff(apex_predator_decl,type,
     apex_predator: species > $o ).
+
+tff(shorter_chain_decl,type,
+    shorter_chain: ( foodchain * foodchain ) > $o ).
+
+tff(depends_on_decl,type,
+    depends_on: ( species * species ) > $o ).
 
 %Axiom1: The eater of a food link eats the eaten of the link.
 tff(eater_eats_eaten,axiom,
@@ -44,55 +60,12 @@ tff(something_primary_producer,axiom,
       ( primary_producer(S)
     <=> ! [X: species] : ~ eats(S,X) ) ).
 
-%Conjecture1: If something is a primary producer 
-%then there is no food link such that the primary producer is the eater of the food link.
-tff(primary_producer_not_eater_of_foodchain,conjecture,
-    ! [S: species] :
-      ( primary_producer(S)
-     => ~ ? [L: foodlink] : ( eater(L) = S ) ) ).
-
-%Conjecture2: Every primary producer is eaten by some other species.
-tff(primary_producer_eaten_by_other,conjecture,
-    ! [S: species] :
-      ( primary_producer(S)
-     => ? [P: species] :
-          ( eats(P,S)
-          & ( P != S ) ) ) ).
-
-%Conjecture3:If a species is not a primary producer then there is another species that it eats.
-tff(non_primary_producer_eats_other,conjecture,
-    ! [S: species] :
-      ( ~ primary_producer(S)
-     => ? [P: species] : eats(S,P) ) ).
-
 %Axiom5: Something is an apex predator iff there is no species that eats it.
 tff(apex_predator,axiom,
     ! [S: species] :
       ( apex_predator(S)
     <=> ~ ? [P: species] : eats(P,S) ) ).
 
-%Conjecture4: If something is an apex predator 
-%then there is no food link such that the apex predator is the eaten of the food link.
-tff(apex_predator_never_gets_eaten,conjecture,
-    ! [S: species] :
-      ( apex_predator(S)
-     => ? [L: foodlink] : ( eaten(L) = S ) ) ).
-
-%Conjecture4: Every apex predator eats some other species.
-tff(apex_predator_eats_other,conjecture,
-    ! [S: species] :
-      ( apex_predator(S)
-     => ? [P: species] :
-          ( eats(S,P)
-          & ( P != S ) ) ) ).
-
-%Conjecture5: If a species is not a apex predator then there is another species that eats it.
-tff(not_apex_predator,conjecture,
-    ! [S: species] :
-      ( ~ apex_predator(S)
-     => ? [P: species] :
-          ( eats(P,S)
-          & ( P != S ) ) ) ).
 
 % Axiom6: For every food chain, 
 % the start of the chain is the eaten of some food link, 
@@ -100,19 +73,6 @@ tff(not_apex_predator,conjecture,
 %     (i) the eater of the food link is the end of the food chain, xor 
 %     (ii) there is a shorter food chain (shorter by one food link) 
 %     from the eater of the food link to the end of the whole food chain.
-
-tff(foodchain_type,type,
-    foodchain: $tType ).
-
-tff(chain_start_decl,type,
-    chain_start: foodchain > species ).
-
-tff(chain_end_decl,type,
-    chain_end: foodchain > species ).
-
-tff(shorter_chain_decl,type,
-    shorter_chain: ( foodchain * foodchain ) > $o ).
-
 tff(food_chain,axiom,
     ! [C: foodchain] :
     ? [L: foodlink] :
@@ -158,6 +118,59 @@ tff(species_in_some_complete_chain,axiom,
             & ( chain_start(C2) = S )
             & ( chain_end(C2) = chain_end(C) ) ) ) ) ).
 
+% Axiom10: Given two species, the first depends on the second iff there is a food chain from the second to the first.
+tff(one_dependant_on_another,axiom,
+    ! [S1: species,S2: species] :
+      ( depends_on(S1,S2)
+    <=> ? [C: foodchain] :
+          ( ( chain_start(C) = S2 )
+          & ( chain_end(C) = S1 ) ) ) ).
+
+%Conjecture1: If something is a primary producer 
+%then there is no food link such that the primary producer is the eater of the food link.
+tff(primary_producer_not_eater_of_foodchain,conjecture,
+    ! [S: species] :
+      ( primary_producer(S)
+     => ~ ? [L: foodlink] : ( eater(L) = S ) ) ).
+
+%Conjecture2: Every primary producer is eaten by some other species.
+tff(primary_producer_eaten_by_other,conjecture,
+    ! [S: species] :
+      ( primary_producer(S)
+     => ? [P: species] :
+          ( eats(P,S)
+          & ( P != S ) ) ) ).
+
+%Conjecture3:If a species is not a primary producer then there is another species that it eats.
+tff(non_primary_producer_eats_other,conjecture,
+    ! [S: species] :
+      ( ~ primary_producer(S)
+     => ? [P: species] : eats(S,P) ) ).
+
+
+%Conjecture4: If something is an apex predator 
+%then there is no food link such that the apex predator is the eaten of the food link.
+tff(apex_predator_never_gets_eaten,conjecture,
+    ! [S: species] :
+      ( apex_predator(S)
+     => ? [L: foodlink] : ( eaten(L) = S ) ) ).
+
+%Conjecture4: Every apex predator eats some other species.
+tff(apex_predator_eats_other,conjecture,
+    ! [S: species] :
+      ( apex_predator(S)
+     => ? [P: species] :
+          ( eats(S,P)
+          & ( P != S ) ) ) ).
+
+%Conjecture5: If a species is not a apex predator then there is another species that eats it.
+tff(not_apex_predator,conjecture,
+    ! [S: species] :
+      ( ~ apex_predator(S)
+     => ? [P: species] :
+          ( eats(P,S)
+          & ( P != S ) ) ) ).
+
 %Conjecture6: The start species of a complete food chain does not eat the end species.
 tff(start_dont_eat_end,conjecture,
     ! [C: foodchain] :
@@ -176,18 +189,6 @@ tff(some_alternate_foodchain,conjecture,
           & ( chain_end(C1) = S )
           & ( chain_start(C2) = S )
           & apex_predator(chain_end(C2)) ) ) ).
-
-% Axiom10: Given two species, the first depends on the second iff there is a food chain from the second to the first.
-
-tff(depends_on_decl,type,
-    depends_on: ( species * species ) > $o ).
-
-tff(one_dependant_on_another,axiom,
-    ! [S1: species,S2: species] :
-      ( depends_on(S1,S2)
-    <=> ? [C: foodchain] :
-          ( ( chain_start(C) = S2 )
-          & ( chain_end(C) = S1 ) ) ) ).
 
 %Conjecture8: If a species is not an apex predator then there is an apex predator that depends on the species.
 tff(species_not_apex_predator,conjecture,
