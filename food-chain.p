@@ -150,3 +150,29 @@ tff(chain_is_complete, axiom,
         )
     )
 ).
+
+% Axiom9: Every species is in some complete food chain, i.e., 
+% (i) the species is the primary producer start of the complete food chain, or 
+% (ii) the species is the apex predator at the end of the complete food chain, or 
+% (iii) there is a non-complete food chain from the start of the complete food chain to the species, 
+% and another non-complete food chain from the species to the end of the complete food chain.
+tff(species_in_some_complete_chain, axiom, 
+    ! [S:species] : (
+        ? [C:foodchain] : (
+            complete_foodchain(C) & 
+            (
+                (S = chain_start(C) & primary_producer(S)) | 
+                (S = chain_end(C) & apex_predator(S)) | 
+                (
+                    ?[C1:foodchain, C2:foodchain] : (
+                        (   
+                            (~complete_foodchain(C1) & chain_start(C1)=chain_start(C) & chain_end(C1)=S) &
+                            (~complete_foodchain(C2) & chain_start(C2)=S & chain_end(C2)=chain_end(C))
+                            
+                        )
+                    )
+                )
+            )
+        )
+    )
+).
