@@ -91,3 +91,11 @@ tff(apex_predator_eats_other, conjecture,
         apex_predator(S) => ? [P:species] : (eats(S, P) & P != S)
     )
 ).
+
+
+%Conjecture5: If a species is not a apex predator then there is another species that eats it.
+tff(not_apex_predator, conjecture, 
+    ! [S:species] : (
+        ~apex_predator(S) => ? [P:species] : (eats(P, S) & P != S)
+    )
+).
