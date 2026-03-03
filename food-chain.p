@@ -131,3 +131,22 @@ tff(food_chain, axiom,
         )
     )
 ).
+
+% Axiom7: There is no food chain from a species back to itself (no death spirals).
+tff(no_self_foodchain, axiom, 
+    ! [C:foodchain] : (
+        chain_start(C) != chain_end(C) 
+    )
+).
+
+
+% Axiom8: A complete food chain starts at a primary producer, and ends at an apex predator.
+tff(complete_foodchain_decl, type, complete_foodchain: foodchain > $o).
+tff(chain_is_complete, axiom, 
+    ! [C:foodchain] : (
+        complete_foodchain(C) => (
+            primary_producer(chain_start(C)) &
+            apex_predator(chain_end(C))
+        )
+    )
+).
