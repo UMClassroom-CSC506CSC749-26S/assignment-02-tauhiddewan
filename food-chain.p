@@ -176,3 +176,25 @@ tff(species_in_some_complete_chain, axiom,
         )
     )
 ).
+
+%Conjecture6: The start species of a complete food chain does not eat the end species.
+tff(start_dont_eat_end, conjecture, 
+    ! [C:foodchain] : (
+        complete_foodchain(C) => ~eats(chain_start(C), chain_end(C))
+    )
+).
+
+% Conjecture7:If a species is neither a primary producer nor an apex predator, 
+% then there is a food chain from a primary producer to that species, 
+% and another food chain from that species to an apex predator.
+tff(some_alternate_foodchain, conjecture, 
+    ! [S:species] : (
+        ( ~primary_producer(S) & ~apex_predator(S)) =>
+        (
+            ? [C1:foodchain, C2:foodchain] : (
+                (primary_producer(chain_start(C1)) & chain_end(C1)=S) &
+                (chain_start(C2)=S & apex_predator(chain_end(C2)))
+            )
+        )
+    )
+).
