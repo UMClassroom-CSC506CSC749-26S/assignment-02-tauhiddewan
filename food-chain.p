@@ -59,3 +59,11 @@ tff(primary_producer_eaten_by_other, conjecture,
         )
     )
 ).
+
+
+%Conjecture3:If a species is not a primary producer then there is another species that it eats.
+tff(non_primary_producer_eats_other, conjecture, 
+    ! [S:species] : (
+        ~primary_producer(S) => ? [P:species] : eats(S,P)
+    )
+).
