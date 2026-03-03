@@ -99,3 +99,35 @@ tff(not_apex_predator, conjecture,
         ~apex_predator(S) => ? [P:species] : (eats(P, S) & P != S)
     )
 ).
+
+
+% Axiom6: For every food chain, 
+% the start of the chain is the eaten of some food link, 
+% and one of the following holds: 
+%     (i) the eater of the food link is the end of the food chain, xor 
+%     (ii) there is a shorter food chain (shorter by one food link) 
+%     from the eater of the food link to the end of the whole food chain.
+
+tff(foodchain_type, type, foodchain:$tType).
+tff(chain_start_decl, type, chain_start: foodchain > species).
+tff(chain_end_decl, type, chain_end: foodchain > species).
+tff(shorter_chain_decl, type, shorter_chain: (foodchain * foodchain) > $o).
+
+tff(food_chain, axiom,
+    ! [C:foodchain] : ? [L:foodlink] : (
+        chain_start(C) = eaten(L) 
+        & 
+        (
+            eater(L) = chain_end(C)
+            <~>
+            (
+                ? [C2:foodchain] : 
+                (
+                    shorter_chain(C2, C) & 
+                    chain_start(C2) = eater(L) & 
+                    chain_end(C2) = chain_end(C) 
+                )
+            )
+        )
+    )
+).
