@@ -49,3 +49,13 @@ tff(primary_producer_not_eater_of_foodchain, conjecture,
         primary_producer(S) => ~?[L:foodlink]: (eater(L) => S)
     )
 ).
+
+
+%Conjecture2: Every primary producer is eaten by some other species.
+tff(primary_producer_eaten_by_other, conjecture, 
+    ! [S:species] : ( 
+        primary_producer(S) => ? [P:species] : (
+            eats(P, S) & P !=S
+        )
+    )
+).
