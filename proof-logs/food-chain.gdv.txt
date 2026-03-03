@@ -1,0 +1,58 @@
+% START OF SYSTEM OUTPUT
+% No problem file supplied, no leaf verification
+Run in plain GDV mode
+Running: /home/tptp/ServiceTools/GDV -T -s -t 30   /tmp/HgHMNGb1Nw/SOT_fUaGrD
+SUCCESS: Derivation has unique formula names
+SUCCESS: All derived formulae have parents and inference information
+WARNING: Took the first false root c_0_13 as the single derivation root
+SUCCESS: Derivation is acyclic
+SUCCESS: Derivation looks like a refutation
+SUCCESS: Negated conjecture c_0_4 is a leaf or CTH from a conjecture
+SUCCESS: Assumptions are propagated
+SUCCESS: Assumptions are discharged
+ NOTICE: Took the conjecture start_dont_eat_end as the proved formula
+ RESULT: leaf_axioms_sat_model - Vampire-SAT---5.0 says Satisfiable - CPU = 0.01
+SUCCESS: Leaf axiom(_like) formulae are satisfiable
+ RESULT: c_0_3_thm - E---3.3.0 says Theorem - CPU = 0.02
+SUCCESS: c_0_3 is a thm of something_primary_producer 
+ NOTICE: Making CTH test of c_0_4 from start_dont_eat_end a CEQ test
+ RESULT: c_0_4_thm - E---3.3.0 says Theorem - CPU = 0.06
+SUCCESS: c_0_4 is a cth of start_dont_eat_end (forwards ceq)
+ RESULT: c_0_4_ceq_thm - E---3.3.0 says Theorem - CPU = 0.01
+SUCCESS: start_dont_eat_end is a thm of neg_c_0_4 (backwards ceq)
+SUCCESS: c_0_4 is a ceq of start_dont_eat_end
+ RESULT: c_0_5_thm - E---3.3.0 says CounterSatisfiable - CPU = 0.01
+FAILURE: c_0_5 fails to be a thm of c_0_3 (forwards esa)
+ RESULT: c_0_5_esa_thm - E---3.3.0 says Theorem - CPU = 0.00
+SUCCESS: c_0_3 is a thm of c_0_5 (backwards esa)
+FAILURE: c_0_5 fails in the forward direction to be a esa of c_0_3
+ ASSUME: c_0_5 is a esa of c_0_3
+ RESULT: c_0_6_thm - E---3.3.0 says CounterSatisfiable - CPU = 0.01
+FAILURE: c_0_6 fails to be a thm of c_0_4 (forwards esa)
+ RESULT: c_0_6_esa_thm - E---3.3.0 says Theorem - CPU = 0.01
+SUCCESS: c_0_4 is a thm of c_0_6 (backwards esa)
+FAILURE: c_0_6 fails in the forward direction to be a esa of c_0_4
+ ASSUME: c_0_6 is a esa of c_0_4
+ RESULT: c_0_7_thm - E---3.3.0 says Theorem - CPU = 0.02
+SUCCESS: c_0_7 is a thm of chain_is_complete 
+ RESULT: c_0_8_thm - E---3.3.0 says Theorem - CPU = 0.01
+SUCCESS: c_0_8 is a thm of c_0_5 
+ RESULT: c_0_9_thm - E---3.3.0 says Theorem - CPU = 0.01
+SUCCESS: c_0_9 is a thm of c_0_6 
+ RESULT: c_0_10_thm - E---3.3.0 says Theorem - CPU = 0.00
+SUCCESS: c_0_10 is a thm of c_0_7 
+ RESULT: c_0_11_thm - E---3.3.0 says Theorem - CPU = 0.01
+SUCCESS: c_0_11 is a thm of c_0_6 
+ RESULT: c_0_12_thm - E---3.3.0 says Theorem - CPU = 0.01
+SUCCESS: c_0_12 is a thm of c_0_8 c_0_9 
+ RESULT: c_0_13_thm - E---3.3.0 says ContradictoryAxioms - CPU = 0.00
+SUCCESS: c_0_13 is a thm of c_0_10 c_0_11 c_0_12 
+SUCCESS: Derived formulae are verified
+CPUTIME: 6.56
+SUCCESS: Verified
+% SZS status Verified
+GDV ended, cleaning up
+
+% END OF SYSTEM OUTPUT
+% RESULT: SOT_fUaGrD - GDV---1.0 says Verified - CPU = 6.20 WC = 4.81  CPUTime = 6.56
+% OUTPUT: SOT_fUaGrD - GDV---1.0 says Assurance - CPU = 6.20 WC = 4.81

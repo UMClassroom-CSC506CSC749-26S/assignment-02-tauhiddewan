@@ -1,0 +1,20 @@
+% Checking upload ... % Checker ran ... % No errors ...
+% START OF SYSTEM OUTPUT
+Found a type species
+Found a type foodlink
+Found a type foodchain
+Found the type of apex_predator
+Found the type of complete_foodchain
+Found the type of depends_on
+Found the type of eats
+Found the type of primary_producer
+Found the type of shorter_chain
+Found the type of chain_end
+Found the type of chain_start
+Found the type of eaten
+Found the type of eater
+/tmp/j9rwAIAjI4/SOT_8a4Teb: 52 symbols checked, 0 errors
+
+% END OF SYSTEM OUTPUT
+% RESULT: SOT_8a4Teb - CheckTyping---0.0 says Success - CPU = 0.00 WC = 0.01 
+% OUTPUT: SOT_8a4Teb - CheckTyping---0.0 says Assurance - CPU = 0.00 WC = 0.01 
