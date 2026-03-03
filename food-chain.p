@@ -46,7 +46,7 @@ tff(something_primary_producer, axiom,
 %then there is no food link such that the primary producer is the eater of the food link.
 tff(primary_producer_not_eater_of_foodchain, conjecture, 
     ! [S:species] : (
-        primary_producer(S) => ~?[L:foodlink]: (eater(L) => S)
+        primary_producer(S) => ~?[L:foodlink]: (eater(L) = S)
     )
 ).
 
@@ -72,6 +72,15 @@ tff(non_primary_producer_eats_other, conjecture,
 %Axiom5: Something is an apex predator iff there is no species that eats it.
 tff(apex_predator, axiom, 
     ! [S:species]: (
-        apex_predator(S) => ~? [P:species] : eats(P, S)
+        apex_predator(S) <=> ~? [P:species] : eats(P, S)
     )
 ).
+
+%Conjecture4: If something is an apex predator 
+%then there is no food link such that the apex predator is the eaten of the food link.
+tff(apex_predator_never_gets_eaten, conjecture, 
+    ! [S:species] : (
+        apex_predator(S) => ? [L:foodlink] : (eaten(L) = S)
+    )
+).
+
