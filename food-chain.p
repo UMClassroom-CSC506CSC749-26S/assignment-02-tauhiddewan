@@ -67,3 +67,11 @@ tff(non_primary_producer_eats_other, conjecture,
         ~primary_producer(S) => ? [P:species] : eats(S,P)
     )
 ).
+
+
+%Axiom5: Something is an apex predator iff there is no species that eats it.
+tff(apex_predator, axiom, 
+    ! [S:species]: (
+        apex_predator(S) => ~? [P:species] : eats(P, S)
+    )
+).
