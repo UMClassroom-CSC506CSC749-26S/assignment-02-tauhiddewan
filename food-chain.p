@@ -84,3 +84,10 @@ tff(apex_predator_never_gets_eaten, conjecture,
     )
 ).
 
+
+%Conjecture4: Every apex predator eats some other species.
+tff(apex_predator_eats_other, conjecture, 
+    ! [S:species] : (
+        apex_predator(S) => ? [P:species] : (eats(S, P) & P != S)
+    )
+).
